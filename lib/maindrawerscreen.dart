@@ -155,21 +155,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       color: Color(0xFF163a96)),
                   title: TextButton(
                     onPressed: () async {
-                      PopupMenuButton<MenuAction>(
-                        onSelected: (value) async {
-                          await showDialogBox(context);
-                        },
-                        itemBuilder: (context) {
-                          return const [
-                            PopupMenuItem<MenuAction>(
-                              value: MenuAction.logout,
-                              child: Text("logout"),
-                            ),
-                          ];
-                        },
-                      );
-
-                      //await authService.signOut();
+                      await showDialogBox(context);
                     },
                     child: const Text('Logout',
                         style: TextStyle(fontSize: 18, color: Colors.black)),
@@ -191,19 +177,31 @@ Future<bool> showDialogBox(context) {
           content: const Text("Do you want to logout"),
           actions: [
             TextButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil("/login/", (route) => false);
-                  log("true");
-                },
-                child: const Text("Yes")),
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil("/homepage/", (route) => false);
+                log("true");
+              },
+              child: const Text(
+                "Yes",
+                style: TextStyle(
+                  color: Color(0xFF163a96),
+                ),
+              ),
+            ),
             TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                  log('false');
-                },
-                child: const Text("No"))
+              onPressed: () {
+                Navigator.of(context).pop(false);
+                log('false');
+              },
+              child: const Text(
+                "No",
+                style: TextStyle(
+                  color: Color(0xFF163a96),
+                ),
+              ),
+            )
           ],
         );
       }).then((value) => value ?? false);

@@ -33,6 +33,7 @@ void main() {
           verifyRoute: (context) => const VerifyEmail(),
           mainUiRoute: (context) => const MainUi(),
           mainPageRoute: (context) => const MainPage(),
+          homePageRoute: (context) => const HomePageRoute(),
         }),
   );
 }

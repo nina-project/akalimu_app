@@ -22,7 +22,7 @@ class HomePageRoute extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               final user = FirebaseAuth.instance.currentUser;
-              if (user!.emailVerified) {
+              if (user?.emailVerified ?? false) {
                 log(user.toString());
                 return const MainPage();
               } else {
@@ -32,7 +32,8 @@ class HomePageRoute extends StatelessWidget {
             default:
               const Text('Done');
           }
-          return const Scaffold(body: CircularProgressIndicator());
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
         });
   }
 }

@@ -14,7 +14,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? uid = FirebaseAuth.instance.currentUser;
-    String id = uid!.uid;
+    Object id = uid?.uid ?? false;
     ThemeData theme = ThemeData();
     theme.copyWith(
       colorScheme: theme.colorScheme.copyWith(primary: const Color(0xFF163a96)),
