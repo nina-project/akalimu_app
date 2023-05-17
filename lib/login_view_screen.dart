@@ -80,6 +80,7 @@
 
 import 'dart:developer';
 
+import 'package:akalimu/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -115,20 +116,50 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                hintText: "Enter your email",
+          children: [ 
+            Row(children: [
+              Expanded(
+                child: TextButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(registerRoute, (route) => false);
+                },
+                child: const Text("Have no account? Sign Up"),
+                ),
+                ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Image.asset(
+                    'assets/logo.png',
+                    width: 50,
+                    height: 50,
+                  ),
+                ),
               ),
-            ),
+            ]),
+            SizedBox(height: 20.0),        
+            TextField(
+              decoration:  InputDecoration(
+                labelText: "Email address",
+               border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+              keyboardType: TextInputType.emailAddress,
+              controller: _emailController,
+              ),
             const SizedBox(
               height: 20.0,
             ),
+            SizedBox(height: 20.0),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(
-                hintText: "Enter your password",
+              decoration:  InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
               ),
               obscureText: true,
             ),
@@ -153,6 +184,14 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
                 child: const Text("Login"),
+                style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                minimumSize: Size(500, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+                backgroundColor: Color(0xFF163a96),
+              ),
               ),
             )
           ],
