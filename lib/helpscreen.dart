@@ -6,7 +6,6 @@ class Help extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = ThemeData();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.white),

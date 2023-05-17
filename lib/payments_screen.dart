@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:akalimu/maindrawerscreen.dart';
 import 'package:akalimu/ratingscreen.dart';
 
-class Payments extends StatelessWidget {
+class Payments extends StatefulWidget {
   const Payments({super.key});
 
+  @override
+  State<Payments> createState() => _PaymentsState();
+}
+
+class _PaymentsState extends State<Payments> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = ThemeData();
