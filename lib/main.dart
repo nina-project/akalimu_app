@@ -1,18 +1,20 @@
-import 'package:akalimu/recommendationscreen.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:akalimu/recommendationscreen.dart';
+//import 'package:firebase_core/firebase_core.dart';
+import 'package:akalimu/flutterwavepayment.dart';
+import 'package:akalimu/payments_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:akalimu/accountscreen.dart';
-import 'package:akalimu/categoryscreen.dart';
+//import 'package:akalimu/accountscreen.dart';
+//import 'package:akalimu/categoryscreen.dart';
 //import 'package:akalimu/futurebuilderdemo.dart';
 import 'package:akalimu/home_page_route_screen.dart';
-import 'package:akalimu/jobrequirementscreen.dart';
+//import 'package:akalimu/jobrequirementscreen.dart';
 import 'package:akalimu/main_ui_controller.dart';
 import 'package:akalimu/mainappscreen.dart';
 //import 'package:akalimu/maps.dart';
-import 'package:akalimu/posttaskscreen.dart';
+//import 'package:akalimu/posttaskscreen.dart';
 //import 'package:akalimu/prac.dart';
 import 'package:akalimu/register_view.dart';
-import 'package:akalimu/taskscreen.dart';
+//.import 'package:akalimu/taskscreen.dart';
 import 'package:akalimu/verify_email_view.dart';
 
 import 'login_view_screen.dart';
@@ -26,7 +28,7 @@ void main() {
   runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const HomePageRoute(),
+        home: const Payments(),
         routes: {
           loginRoute: (context) => const LoginPage(),
           registerRoute: (context) => const RegisterPage(),

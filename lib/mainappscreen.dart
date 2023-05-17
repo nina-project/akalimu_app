@@ -1,6 +1,6 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:akalimu/recommendationscreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:akalimu/posttaskscreen.dart';
@@ -13,8 +13,8 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? uid = FirebaseAuth.instance.currentUser;
-    Object id = uid?.uid ?? false;
+    // User? uid = FirebaseAuth.instance.currentUser;
+    // String id = uid!.uid;
     ThemeData theme = ThemeData();
     theme.copyWith(
       colorScheme: theme.colorScheme.copyWith(primary: const Color(0xFF163a96)),
