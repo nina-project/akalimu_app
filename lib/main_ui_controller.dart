@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:akalimu/mainappscreen.dart';
-import 'routes.dart';
+//import 'routes.dart';
 
 class MainUi extends StatefulWidget {
   const MainUi({super.key});
