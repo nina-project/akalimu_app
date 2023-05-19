@@ -1,5 +1,9 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:akalimu/recommendationscreen.dart';
+import 'package:akalimu/recommender.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:firebase_core/firebase_core.dart';
@@ -8,12 +12,19 @@ import 'package:akalimu/taskscreen.dart';
 
 import 'maindrawerscreen.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
   @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
   Widget build(BuildContext context) {
-    // User? uid = FirebaseAuth.instance.currentUser;
+    final firebaseUser = auth.FirebaseAuth.instance.currentUser;
+
+    //firebase_auth.User? user = FirebaseAuth.instance.currentUser;
     // String id = uid!.uid;
     ThemeData theme = ThemeData();
     theme.copyWith(
@@ -37,7 +48,7 @@ class MainPage extends StatelessWidget {
                   ),
                 ),
                 Tab(
-                  text: 'commended',
+                  text: 'Recommended',
                   icon: Icon(
                     Icons.people_outline,
                     color: Colors.white,
@@ -56,11 +67,11 @@ class MainPage extends StatelessWidget {
           drawer: const MainDrawer(
             userImage: '',
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              TaskPage(),
-              RecommendationCardListView(),
-              PostTaskPage(),
+              const TaskPage(),
+              RecommendedJobsScreen(user: firebaseUser!),
+              const PostTaskPage(),
             ],
           ),
         ));

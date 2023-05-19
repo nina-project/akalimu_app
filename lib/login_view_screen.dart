@@ -80,6 +80,9 @@
 
 import 'dart:developer';
 
+import 'package:akalimu/services/auth/auth_exceptions.dart';
+import 'package:akalimu/services/auth/auth_service.dart';
+import 'package:akalimu/utilities/dialogs/show_error_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -140,16 +143,32 @@ class _LoginPageState extends State<LoginPage> {
               child: ElevatedButton(
                 onPressed: () async {
                   try {
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    await AuthService.firebase().logIn(
                       email: _emailController.text,
                       password: _passwordController.text,
                     );
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      "/mainpage/",
-                      (route) => false,
+                    final user = AuthService.firebase().currentUser;
+                    if (user?.isEmailVerified ?? false) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        "/mainpage/",
+                        (route) => false,
+                      );
+                    }
+                  } on UserNotFoundAuthException {
+                    await showErrorDialog(
+                      context,
+                      "User not found",
                     );
-                  } on FirebaseAuthException catch (e) {
-                    log(e.code.toString());
+                  } on WrongPasswordAuthException {
+                    await showErrorDialog(
+                      context,
+                      "Wrong Credentials",
+                    );
+                  } on GenericAuthException {
+                    await showErrorDialog(
+                      context,
+                      "Authentication error",
+                    );
                   }
                 },
                 child: const Text("Login"),

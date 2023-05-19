@@ -1,7 +1,9 @@
 import 'dart:developer';
 
-import 'package:akalimu/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:akalimu/auth_serviceg.dart';
+import 'package:akalimu/services/auth/auth_exceptions.dart';
+import 'package:akalimu/services/auth/auth_service.dart';
+import 'package:akalimu/utilities/dialogs/show_error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:akalimu/routes.dart';
 
@@ -56,10 +58,31 @@ class _RegisterPageState extends State<RegisterPage> {
             TextButton(
               onPressed: () async {
                 try {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: _email.text, password: _password.text);
-                } on FirebaseAuthException catch (e) {
-                  log(e.code);
+                  AuthService.firebase().createUser(
+                    email: _email.text,
+                    password: _password.text,
+                  );
+                  AuthService.firebase().sendEmailVerification();
+                } on WeakPasswordAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Weak password',
+                  );
+                } on EmailAlreadyInUseAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Email already in use',
+                  );
+                } on InvalidEmailAuthException {
+                  await showErrorDialog(
+                    context,
+                    'This is an invalid email address',
+                  );
+                } on GenericAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Failed to Register',
+                  );
                 }
               },
               child: const Text("Register"),
@@ -77,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: const Text("verify")),
             TextButton(
                 onPressed: () {
-                  AuthService().signInWithGoogle();
+                  AuthServices().signInWithGoogle();
                   Navigator.of(context).pushNamed(mainPageRoute);
                 },
                 child: const Text("Google Sign In"))

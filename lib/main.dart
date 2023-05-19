@@ -1,11 +1,4 @@
-//import 'package:akalimu/recommendationscreen.dart';
-//import 'package:firebase_core/firebase_core.dart';
-import 'package:akalimu/flutterwavepayment.dart';
-import 'package:akalimu/payments_screen.dart';
 import 'package:flutter/material.dart';
-//import 'package:akalimu/accountscreen.dart';
-//import 'package:akalimu/categoryscreen.dart';
-//import 'package:akalimu/futurebuilderdemo.dart';
 import 'package:akalimu/home_page_route_screen.dart';
 //import 'package:akalimu/jobrequirementscreen.dart';
 import 'package:akalimu/main_ui_controller.dart';
@@ -28,7 +21,7 @@ void main() {
   runApp(
     MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const Payments(),
+        home: const HomePageRoute(),
         routes: {
           loginRoute: (context) => const LoginPage(),
           registerRoute: (context) => const RegisterPage(),

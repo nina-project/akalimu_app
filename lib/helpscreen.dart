@@ -11,7 +11,7 @@ class Help extends StatelessWidget {
       theme: ThemeData(primaryColor: Colors.white),
       home: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.teal,
+            backgroundColor: const Color(0xFF163a96),
             title: const Text('Help'),
             leading: IconButton(
               icon: const Icon(

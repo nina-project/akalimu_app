@@ -16,7 +16,8 @@ class _PaymentsState extends State<Payments> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: theme.copyWith(
-          colorScheme: theme.colorScheme.copyWith(primary: Colors.teal[600]),
+          colorScheme:
+              theme.colorScheme.copyWith(primary: const Color(0xFF163a96)),
         ),
         home: Scaffold(
           appBar: AppBar(

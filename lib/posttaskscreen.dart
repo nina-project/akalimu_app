@@ -1,6 +1,7 @@
 //ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostTaskPage extends StatefulWidget {
   const PostTaskPage({super.key});
@@ -10,6 +11,9 @@ class PostTaskPage extends StatefulWidget {
 }
 
 class _PostTaskPageState extends State<PostTaskPage> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final TextEditingController _descriptionController = TextEditingController();
+
   String? categoryValue;
   String? locationValue;
   bool isRemote = false;
@@ -80,14 +84,15 @@ class _PostTaskPageState extends State<PostTaskPage> {
                       ),
                       const SizedBox(height: 10.0),
                       TextFormField(
+                          controller: _descriptionController,
                           decoration: const InputDecoration(
-                        hintText: 'Enter description',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 3, color: Color(0xFF163a96)),
-                        ),
-                      )),
+                            hintText: 'Enter description',
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 3, color: Color(0xFF163a96)),
+                            ),
+                          )),
                       const SizedBox(height: 20.0),
                       const Text(
                         'Location',
@@ -158,9 +163,7 @@ class _PostTaskPageState extends State<PostTaskPage> {
                             backgroundColor: const Color(
                                 0xFF163a96), // Text Color background color)
                           ),
-                          onPressed: () {
-                            // Handle continue button press
-                          },
+                          onPressed: _saveJobData,
                           child: const Text('Continue'),
                         ),
                       ),
@@ -173,5 +176,23 @@ class _PostTaskPageState extends State<PostTaskPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _saveJobData() async {
+    final Map<String, dynamic> jobData = {
+      'title': categoryValue,
+      'description': _descriptionController.text,
+      'location': locationValue,
+      'isRemote': isRemote,
+    };
+
+    try {
+      await _firestore.collection('jobs').add(jobData);
+      // Job data saved successfully
+      // You can navigate to the recommended jobs screen here or perform any other actions
+    } catch (e) {
+      // Error occurred while saving job data
+      print('Error saving job data: $e');
+    }
   }
 }

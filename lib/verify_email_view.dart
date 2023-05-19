@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:akalimu/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class VerifyEmail extends StatelessWidget {
@@ -12,8 +12,7 @@ class VerifyEmail extends StatelessWidget {
         children: [
           TextButton(
               onPressed: () async {
-                final user = FirebaseAuth.instance.currentUser;
-                await user?.sendEmailVerification();
+                await AuthService.firebase().sendEmailVerification();
               },
               child: const Text(
                 "Verify Email",

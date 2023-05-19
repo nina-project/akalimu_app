@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:akalimu/showerrordialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,6 @@ import 'package:flutter/material.dart';
 //import 'package:provider/provider.dart';
 import 'package:akalimu/payments_screen.dart';
 import 'package:akalimu/profilescreen.dart';
-import 'package:flutterwave/core/flutterwave.dart';
-import 'package:flutterwave/models/responses/charge_response.dart';
-
 import 'aboutscreen.dart';
 import 'helpscreen.dart';
 
@@ -135,12 +133,12 @@ class _MainDrawerState extends State<MainDrawer> {
                 leading: const Icon(Icons.payment, color: Color(0xFF163a96)),
                 title: TextButton(
                   onPressed: () {
-                    _makePayment(context, ((user?.email).toString()).trim(),
-                        amount.trim());
-                    // Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const Payments()));
+                    // _makePayment(context, ((user?.email).toString()).trim(),
+                    //     amount.trim());
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Payments()));
                   },
                   child: const Text('Payments',
                       style: TextStyle(fontSize: 18, color: Colors.black)),
@@ -191,84 +189,46 @@ class _MainDrawerState extends State<MainDrawer> {
     );
   }
 
-  void _makePayment(BuildContext context, String email, String amount) async {
-    try {
-      Flutterwave flutterwave = Flutterwave.forUIPayment(
-          context: this.context,
-          encryptionKey: "FLWSECK_TEST4734027149f5",
-          publicKey: "FLWPUBK_TEST-e8d4cd5462fb381c4163ba7f7f746a98-X",
-          currency: "NGN",
-          amount: amount,
-          email: (user?.email).toString(),
-          fullName: (user?.displayName).toString(),
-          txRef: _ref!,
-          isDebugMode: true,
-          phoneNumber: "0123456789",
-          acceptCardPayment: true,
-          acceptUSSDPayment: true,
-          acceptAccountPayment: true,
-          acceptFrancophoneMobileMoney: false,
-          acceptGhanaPayment: false,
-          acceptMpesaPayment: false,
-          acceptRwandaMoneyPayment: false,
-          acceptUgandaPayment: true,
-          acceptZambiaPayment: false);
+//   void _makePayment(BuildContext context, String email, String amount) async {
+//     try {
+//       Flutterwave flutterwave = Flutterwave.forUIPayment(
+//           context: this.context,
+//           encryptionKey: "FLWSECK_TEST4734027149f5",
+//           publicKey: "FLWPUBK_TEST-e8d4cd5462fb381c4163ba7f7f746a98-X",
+//           currency: "NGN",
+//           amount: amount,
+//           email: (user?.email).toString(),
+//           fullName: (user?.displayName).toString(),
+//           txRef: _ref!,
+//           isDebugMode: true,
+//           phoneNumber: "0123456789",
+//           acceptCardPayment: true,
+//           acceptUSSDPayment: true,
+//           acceptAccountPayment: true,
+//           acceptFrancophoneMobileMoney: false,
+//           acceptGhanaPayment: false,
+//           acceptMpesaPayment: false,
+//           acceptRwandaMoneyPayment: false,
+//           acceptUgandaPayment: true,
+//           acceptZambiaPayment: false);
 
-      final ChargeResponse response =
-          await flutterwave.initializeForUiPayments();
+//       final ChargeResponse response =
+//           await flutterwave.initializeForUiPayments();
 
-      if (response == null) {
-        print("Transaction Failed");
-      } else {
-        ///
-        if (response.status == "success") {
-          print(response.data);
-          print(response.message);
-        } else {
-          print(response.message);
-        }
-      }
-    } catch (error) {
-      print(error);
-    }
-  }
-}
-
-Future<bool> showDialogBox(context) {
-  return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Logout"),
-          content: const Text("Do you want to logout"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil("/homepage/", (route) => false);
-                print("true");
-              },
-              child: const Text(
-                "Yes",
-                style: TextStyle(
-                  color: Color(0xFF163a96),
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-                print('false');
-              },
-              child: const Text(
-                "No",
-                style: TextStyle(
-                  color: Color(0xFF163a96),
-                ),
-              ),
-            )
-          ],
-        );
-      }).then((value) => value ?? false);
+//       if (response == null) {
+//         print("Transaction Failed");
+//       } else {
+//         ///
+//         if (response.status == "success") {
+//           print(response.data);
+//           print(response.message);
+//         } else {
+//           print(response.message);
+//         }
+//       }
+//     } catch (error) {
+//       print(error);
+//     }
+//   }
+// }
 }
